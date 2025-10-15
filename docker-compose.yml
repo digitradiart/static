@@ -1,0 +1,7 @@
+services:
+  static:
+    build:
+      context: .
+    container_name: static
+    ports:
+      - "3001:3000"

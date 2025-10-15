@@ -1,9 +1,13 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  output: "export",
-  trailingSlash: true,
-  assetPrefix: "",
+  // Ganti 'export' menjadi 'standalone'
+  output: "standalone",
+
+  // Properti ini TIDAK diperlukan lagi di mode standalone
+  // trailingSlash: true,
+  // assetPrefix: "",
+
   images: {
     unoptimized: true,
     remotePatterns: [
