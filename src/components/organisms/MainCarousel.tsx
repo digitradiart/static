@@ -2,7 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
-import Link from "next/link"; // 1. Impor komponen Link
+import Link from "next/link";
 import { Suspense } from "react";
 import { useState, useEffect } from "react";
 import Loading from "@/components/organisms/Loading";
@@ -47,14 +47,14 @@ export function MainCarousel() {
 
   return (
     // bagi dua layarnya
-    <div className="container mx-auto flex flex-col-reverse xl:flex-row w-full px-0 py-8">
-      <div className="w-full xl:w-1/2 flex flex-col justify-center p-6 text-center md:text-start xl:text-start">
+    <div className="flex flex-col-reverse xl:flex-row w-full mx-0 px-8 py-0 border-2">
+      <div className="w-full xl:w-2/3 flex flex-col justify-center p-6 text-center md:text-start xl:text-start">
         <h1 className="text-2xl font-bold md:text-3xl lg:text-4xl mb-2 text-[var(--bmkggreen1)]">
           {datas[current].alt}
         </h1>
         <p className="text-muted-foreground">{datas[current].description}</p>
       </div>
-      <div className="w-full xl:w-1/2">
+      <div className="w-full xl:w-1/3">
         <Carousel
           plugins={[
             Autoplay({
@@ -68,18 +68,18 @@ export function MainCarousel() {
             {datas.map((img, index) => {
               const isAnimatedGif = img.url.endsWith(".gif");
               return (
-                // 3. Bungkus CarouselItem dengan komponen Link
                 <CarouselItem key={img.id} className="h-full">
                   <Link href={`/${img.slug}/detail`} passHref>
                     <Card className="h-full cursor-pointer transition-transform duration-300 hover:scale-105">
-                      <CardContent className="p-0 relative h-[300px] sm:h-[400px] md:h-[500px]">
+                      <CardContent className="p-0 relative h-[300px] sm:h-[400px] md:h-[300px]">
                         <Suspense fallback={<Loading />}>
                           <Image
                             src={img.url}
                             alt={img.alt}
                             fill
-                            className="object-contain" // Hapus pointer-events-none
-                            sizes="(max-width: 768px) 100vw, 70vh"
+                            // GANTI: Gunakan object-cover untuk mengisi wadah
+                            className="object-cover"
+                            sizes="(max-width: 768px) 100vw, 40vh"
                             priority={index === 0}
                             {...(isAnimatedGif && { unoptimized: true })}
                           />
